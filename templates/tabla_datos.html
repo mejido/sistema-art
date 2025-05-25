@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Tabla de Datos ART</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- TÍTULO PRINCIPAL -->
+<h2>📊 Tabla de Datos ART</h2>
+        <!-- TABLA -->
+<table class="tabla-art">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Empresa</th>
+                    <th>Cargo</th>
+                    <th>Ciudad</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for fila in datos %}
+                <tr>
+                    <td>{{ fila['nombre'] }}</td>
+                    <td>{{ fila['empresa'] }}</td>
+                    <td>{{ fila['cargo'] }}</td>
+                    <td>{{ fila['ciudad'] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+<!-- FIN TABLA -->
+        <a href="{{ url_for('cliente.cliente_dashboard') }}" class="btn btn-blue">⬅ Volver</a>
+    </div>
+</body>
+</html>

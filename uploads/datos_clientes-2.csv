@@ -1,0 +1,31 @@
+usuario_id,nombre,empresa,cargo,ciudad
+1,Contacto 1-1,Empresa 1,Supervisor,Buenos Aires
+1,Contacto 1-2,Empresa 1,Gerente,Córdoba
+1,Contacto 1-3,Empresa 1,Analista,Buenos Aires
+2,Contacto 2-1,Empresa 2,Analista,Buenos Aires
+2,Contacto 2-2,Empresa 2,Gerente,Córdoba
+2,Contacto 2-3,Empresa 2,Gerente,Córdoba
+3,Contacto 3-1,Empresa 3,Analista,Rosario
+3,Contacto 3-2,Empresa 3,Analista,Córdoba
+3,Contacto 3-3,Empresa 3,Supervisor,Rosario
+4,Contacto 4-1,Empresa 4,Supervisor,Buenos Aires
+4,Contacto 4-2,Empresa 4,Supervisor,Córdoba
+4,Contacto 4-3,Empresa 4,Analista,Córdoba
+5,Contacto 5-1,Empresa 5,Gerente,Rosario
+5,Contacto 5-2,Empresa 5,Analista,Buenos Aires
+5,Contacto 5-3,Empresa 5,Analista,Córdoba
+6,Contacto 6-1,Empresa 6,Analista,Córdoba
+6,Contacto 6-2,Empresa 6,Analista,Córdoba
+6,Contacto 6-3,Empresa 6,Gerente,Rosario
+7,Contacto 7-1,Empresa 7,Gerente,Buenos Aires
+7,Contacto 7-2,Empresa 7,Supervisor,Rosario
+7,Contacto 7-3,Empresa 7,Analista,Rosario
+8,Contacto 8-1,Empresa 8,Supervisor,Rosario
+8,Contacto 8-2,Empresa 8,Analista,Córdoba
+8,Contacto 8-3,Empresa 8,Supervisor,Córdoba
+9,Contacto 9-1,Empresa 9,Analista,Buenos Aires
+9,Contacto 9-2,Empresa 9,Supervisor,Córdoba
+9,Contacto 9-3,Empresa 9,Analista,Córdoba
+10,Contacto 10-1,Empresa 10,Supervisor,Buenos Aires
+10,Contacto 10-2,Empresa 10,Supervisor,Buenos Aires
+10,Contacto 10-3,Empresa 10,Supervisor,Rosario

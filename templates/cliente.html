@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Dashboard Cliente</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <img
+        src="{{ url_for('static', filename='img/logo-netbroker.png') }}"
+        alt="Logo de NetBroker"
+        class="logo"
+      />
+      <!-- TÍTULO PRINCIPAL -->
+<h2 style="text-align: center">📋 Datos ART: {{ nombre }}</h2>
+      <div class="btn-stack">
+        <a href="{{ url_for('cliente.ver_tabla') }}" class="btn btn-blue">Tabla datos ART</a>
+        <a href="{{ url_for('cliente.ver_grafico') }}" class="btn btn-blue">Gráfico datos ART</a>
+        <a href="{{ url_for('cliente.descargar_pdf') }}" class="btn btn-blue">Descargar Datos</a>
+
+
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,106 @@
+<!-- templates/editar_usuario.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar {{ 'Administrador' if user.rol == 'admin' else 'Cliente' }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        .campo-con-ojito {
+            position: relative;
+        }
+        .campo-con-ojito input[type="password"],
+        .campo-con-ojito input[type="text"] {
+            padding-right: 2.5rem;
+        }
+        .toggle-ojito {
+            position: absolute;
+            right: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+        }
+        .toggle-ojito svg {
+            width: 20px;
+            height: 20px;
+            fill: #666;
+        }
+    </style>
+</head>
+<body>
+<div class="formulario container">
+    <img src="{{ url_for('static', filename='img/logo-netbroker.png') }}" alt="Logo de NetBroker" class="logo">
+    <!-- TÍTULO PRINCIPAL -->
+<h2>Editar {{ 'Administrador' if user.rol == 'admin' else 'Cliente' }}</h2>
+
+    {% if error %}
+        <div class="error">{{ error }}</div>
+    {% endif %}
+
+    <!-- FORMULARIO -->
+<form method="POST">
+        <label for="nombre">Nombre:</label>
+        <input type="text" name="nombre" id="nombre" value="{{ user.nombre }}" required>
+
+        <label for="usuario">Usuario:</label>
+        <input type="text" name="usuario" id="usuario" value="{{ user.usuario }}" required>
+
+        <label for="contrasena_actual">Contraseña actual:</label>
+        <div class="campo-con-ojito">
+            <input type="text" name="contrasena_actual" id="contrasena_actual" value="{{ user.clave }}" readonly>
+        </div>
+
+        <label><input type="checkbox" id="actualizar_contrasena" name="actualizar_contrasena"> Actualizar contraseña</label>
+
+        <div id="nueva_contrasena_fields" style="display: none;">
+            <label for="nueva_contrasena">Nueva contraseña:</label>
+            <div class="campo-con-ojito">
+                <input type="password" name="nueva_contrasena" id="nueva_contrasena">
+                <button type="button" class="toggle-ojito" onclick="togglePassword('nueva_contrasena', this)">
+                    <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 8.11 1 12c1.73 3.89 6 7.5 11 7.5s9.27-3.61 11-7.5C21.27 8.11 17 4.5 12 4.5zm0 12c-2.49 0-4.5-2.01-4.5-4.5S9.51 7.5 12 7.5s4.5 2.01 4.5 4.5S14.49 16.5 12 16.5zm0-7A2.5 2.5 0 0 0 9.5 12 2.5 2.5 0 0 0 12 14.5 2.5 2.5 0 0 0 14.5 12 2.5 2.5 0 0 0 12 9.5z"/></svg>
+                </button>
+            </div>
+
+            <label for="repetir_contrasena">Repetir contraseña:</label>
+            <div class="campo-con-ojito">
+                <input type="password" name="repetir_contrasena" id="repetir_contrasena">
+                <button type="button" class="toggle-ojito" onclick="togglePassword('repetir_contrasena', this)">
+                    <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 8.11 1 12c1.73 3.89 6 7.5 11 7.5s9.27-3.61 11-7.5C21.27 8.11 17 4.5 12 4.5zm0 12c-2.49 0-4.5-2.01-4.5-4.5S9.51 7.5 12 7.5s4.5 2.01 4.5 4.5S14.49 16.5 12 16.5zm0-7A2.5 2.5 0 0 0 9.5 12 2.5 2.5 0 0 0 12 14.5 2.5 2.5 0 0 0 14.5 12 2.5 2.5 0 0 0 12 9.5z"/></svg>
+                </button>
+            </div>
+        </div>
+
+        <label for="rol">Rol:</label>
+        <select name="rol" id="rol">
+            <option value="admin" {% if user.rol == 'admin' %}selected{% endif %}>Administrador</option>
+            <option value="cliente" {% if user.rol == 'cliente' %}selected{% endif %}>Cliente</option>
+        </select>
+
+        <div class="botones">
+            <button type="submit" class="btn btn-blue">💾 Guardar</button>
+            <a href="{{ url_for('usuarios.listar_usuarios') }}" class="btn btn-white">← Cancelar</a>
+        </div>
+    </form>
+<!-- FIN FORMULARIO -->
+</div>
+
+<script>
+document.getElementById('actualizar_contrasena').addEventListener('change', function() {
+    const campos = document.getElementById('nueva_contrasena_fields');
+    campos.style.display = this.checked ? 'block' : 'none';
+});
+
+function togglePassword(id, btn) {
+    const input = document.getElementById(id);
+    if (input.type === "password") {
+        input.type = "text";
+    } else {
+        input.type = "password";
+    }
+}
+</script>
+</body>
+</html>

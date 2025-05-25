@@ -1,0 +1,21 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Panel Administrador</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <div class="login-box">
+    <img src="{{ url_for('static', filename='img/logo-netbroker.png') }}" alt="Logo de NetBroker" class="logo">
+    <!-- TÍTULO PRINCIPAL -->
+<h2>Bienvenido Administrador</h2>
+    <div class="btn-stack">
+      <a href="/usuarios" class="btn btn-blue">👤 Gestionar Usuarios</a>
+      <a href="/cargar_csv" class="btn btn-blue">📄 Cargar CSV</a>
+      <a href="{{ url_for('auth.logout') }}" class="btn btn-blue">Cerrar Sesión</a>
+    </class=>
+  </div>
+</body>
+</html>

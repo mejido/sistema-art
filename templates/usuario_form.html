@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario Usuario</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<div class="formulario">
+    <img src="{{ url_for('static', filename='img/logo-netbroker.png') }}" alt="Logo de NetBroker" class="logo">
+    <!-- TÍTULO PRINCIPAL -->
+<h2>{{ 'Editar Usuario' if user else 'Nuevo Usuario' }}</h2>
+
+    <!-- FORMULARIO -->
+<form method="post">
+        <label for="nombre">Nombre:</label>
+        <input type="text" name="nombre" required value="{{ user.nombre if user else '' }}">
+
+        <label for="usuario">Usuario:</label>
+        <input type="text" name="usuario" required value="{{ user.usuario if user else '' }}">
+
+        <label for="rol">Rol:</label>
+        <select name="rol" required>
+            <option value="admin" {% if user and user.rol == 'admin' %}selected{% endif %}>Administrador</option>
+            <option value="cliente" {% if user and user.rol == 'cliente' %}selected{% endif %}>Cliente</option>
+        </select>
+
+        <label for="clave">Contraseña:</label>
+        <input type="password" name="clave" {% if not user %}required{% endif %}>
+
+        <div class="centered-buttons">
+            <button type="submit" class="btn btn-blue">💾 Guardar</button>
+            <a href="{{ url_for('usuarios.listar_usuarios') }}" class="btn btn-white">← Volver a la lista</a>
+        </div>
+    </form>
+<!-- FIN FORMULARIO -->
+</div>
+</body>
+</html>

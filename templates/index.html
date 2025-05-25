@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Login - NetBroker</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  
+  <div class="login-box">
+    <img src="{{ url_for('static', filename='img/logo-netbroker.png') }}" alt="Logo de NetBroker" class="logo">
+    <h4>Administrador Datos ART</h4>
+    <h4>🔐 Iniciar sesión</h4>
+
+    {% with mensajes = get_flashed_messages() %}
+      {% if mensajes %}
+        <div class="alerta-error">
+          {% for msg in mensajes %}
+            <p>{{ msg }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <!-- FORMULARIO -->
+<form method="POST">
+      <input type="text" id="usuario" name="usuario" placeholder="Usuario" required style="width: 100%;">
+      <input type="password" id="clave" name="password" placeholder="Contraseña" required style="width: 100%;">
+      <div class="centered-buttons">
+        <button type="submit" class="btn btn-blue">Ingresar</button>
+      </div>
+    </form>
+<!-- FIN FORMULARIO -->
+
+  </div>
+</body>
+</html>
