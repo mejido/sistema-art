@@ -69,7 +69,6 @@ label[for="rol"] {
 .container {
     width: 100%;
     max-width: 800px; /* o el ancho que estés usando */
-    margin: 4rem auto;
     padding: 2rem;
     background: white;
     border-radius: 1.5rem;
