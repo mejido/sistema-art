@@ -1,22 +1,22 @@
-# Archivo generado o modificado el 22/05/2025 (hora local Argentina)
-
 from flask import Flask
-from rutas.auth import auth
 from rutas.usuarios import usuarios
+from rutas.auth import auth
 from rutas.csv import csv_rutas
 from rutas.cliente import cliente_bp
-
+import os
 
 app = Flask(__name__)
-app.config.from_pyfile('config.py')
-app.secret_key = app.config['SECRET_KEY']
+app.secret_key = 'clave_secreta'
+app.config['DATABASE'] = 'netbroker.db'  # ← Esta línea soluciona el KeyError
 
+# Registrar Blueprints
 app.register_blueprint(auth)
 app.register_blueprint(usuarios)
 app.register_blueprint(csv_rutas)
-app.register_blueprint(cliente_bp, url_prefix='/cliente')
+app.register_blueprint(cliente_bp)
 
+# Ejecutar en producción
 if __name__ == '__main__':
-    print("✅ Flask va a arrancar")
-    app.run(debug=app.config['DEBUG'])
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
 
