@@ -13,7 +13,7 @@ app.config['DATABASE'] = 'netbroker.db'  # ← Esta línea soluciona el KeyError
 app.register_blueprint(auth)
 app.register_blueprint(usuarios)
 app.register_blueprint(csv_rutas)
-app.register_blueprint(cliente_bp)
+app.register_blueprint(cliente_bp, url_prefix='/cliente')
 
 # Ejecutar en producción
 if __name__ == '__main__':
