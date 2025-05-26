@@ -40,13 +40,13 @@ def login():
 def admin():
     if 'usuario_id' not in session or session.get('rol') != 'admin':
         return redirect('/')
-    return f"Bienvenido Administrador: {session.get('usuario')}"
+    return render_template('admin.html', usuario=session.get('usuario'))
 
 @app.route('/cliente')
 def cliente():
     if 'usuario_id' not in session or session.get('rol') != 'cliente':
         return redirect('/')
-    return f"Bienvenido Cliente: {session.get('usuario')}"
+    return render_template('cliente.html', usuario=session.get('usuario'))
 
 @app.route('/logout')
 def logout():
