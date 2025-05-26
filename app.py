@@ -1,4 +1,3 @@
-from rutas.cliente_routes import cliente_bp
 # Archivo generado o modificado el 22/05/2025 (hora local Argentina)
 
 from flask import Flask
@@ -21,5 +20,3 @@ if __name__ == '__main__':
     print("✅ Flask va a arrancar")
     app.run(debug=app.config['DEBUG'])
 
-
-app.register_blueprint(cliente_bp)
