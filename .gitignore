@@ -7,7 +7,6 @@ __pycache__/
 *.pyo
 *.log
 *.sqlite3
-*.db
 .DS_Store
 
 # Archivos de configuración del editor
