@@ -15,8 +15,28 @@ app.register_blueprint(usuarios)
 app.register_blueprint(csv_rutas)
 app.register_blueprint(cliente_bp)
 
+@app.route('/ver-clientes')
+def ver_clientes():
+    import sqlite3
+    conn = sqlite3.connect('netbroker.db')
+    cur = conn.cursor()
+    cur.execute("SELECT usuario, clave, rol FROM usuarios")
+    datos = cur.fetchall()
+    conn.close()
+    return '<br>'.join([f"{u} | {c} | {r}" for u, c, r in datos])
+
 # Ejecutar en producción
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
 
+
+@app.route('/ver-clientes')
+def ver_clientes():
+    import sqlite3
+    conn = sqlite3.connect('netbroker.db')
+    cur = conn.cursor()
+    cur.execute("SELECT usuario, clave, rol FROM usuarios")
+    datos = cur.fetchall()
+    conn.close()
+    return '<br>'.join([f"{u} | {c} | {r}" for u, c, r in datos])
