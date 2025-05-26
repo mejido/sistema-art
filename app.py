@@ -1,42 +1,54 @@
-from flask import Flask
-from rutas.usuarios import usuarios
-from rutas.auth import auth
-from rutas.csv import csv_rutas
-from rutas.cliente import cliente_bp
-import os
+from flask import Flask, render_template, request, redirect, session
+import sqlite3
 
 app = Flask(__name__)
-app.secret_key = 'clave_secreta'
-app.config['DATABASE'] = 'netbroker.db'  # ← Esta línea soluciona el KeyError
+app.secret_key = "clave-secreta"
 
-# Registrar Blueprints
-app.register_blueprint(auth)
-app.register_blueprint(usuarios)
-app.register_blueprint(csv_rutas)
-app.register_blueprint(cliente_bp)
-
-@app.route('/ver-clientes')
-def ver_clientes():
-    import sqlite3
+def get_db_connection():
     conn = sqlite3.connect('netbroker.db')
-    cur = conn.cursor()
-    cur.execute("SELECT usuario, clave, rol FROM usuarios")
-    datos = cur.fetchall()
-    conn.close()
-    return '<br>'.join([f"{u} | {c} | {r}" for u, c, r in datos])
+    conn.row_factory = sqlite3.Row
+    return conn
 
-# Ejecutar en producción
-if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
+@app.route('/', methods=['GET', 'POST'])
+def login():
+    error = None
+    if request.method == 'POST':
+        usuario = request.form['usuario']
+        clave = request.form['clave']
 
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM usuarios WHERE usuario = ? AND clave = ?", (usuario, clave))
+        resultado = cursor.fetchone()
+        conn.close()
 
-@app.route('/ver-clientes')
-def ver_clientes():
-    import sqlite3
-    conn = sqlite3.connect('netbroker.db')
-    cur = conn.cursor()
-    cur.execute("SELECT usuario, clave, rol FROM usuarios")
-    datos = cur.fetchall()
-    conn.close()
-    return '<br>'.join([f"{u} | {c} | {r}" for u, c, r in datos])
+        if resultado:
+            session['usuario_id'] = resultado['id']
+            session['rol'] = resultado['rol']
+            session['usuario'] = resultado['usuario']
+
+            if resultado['rol'] == 'admin':
+                return redirect('/admin')
+            elif resultado['rol'] == 'cliente':
+                return redirect('/cliente')
+        else:
+            error = 'Credenciales incorrectas'
+
+    return render_template('index.html', error=error)
+
+@app.route('/admin')
+def admin():
+    if 'usuario_id' not in session or session.get('rol') != 'admin':
+        return redirect('/')
+    return f"Bienvenido Administrador: {session.get('usuario')}"
+
+@app.route('/cliente')
+def cliente():
+    if 'usuario_id' not in session or session.get('rol') != 'cliente':
+        return redirect('/')
+    return f"Bienvenido Cliente: {session.get('usuario')}"
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect('/')
