@@ -1,92 +1,96 @@
 <!-- templates/datos_cliente_admin.html -->
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Datos ART: {{ cliente_nombre }}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
-<body>
-<div class="formulario container">
-    <img src="{{ url_for('static', filename='img/logo-netbroker.png') }}" alt="Logo de NetBroker" class="logo">
-    <!-- TÍTULO PRINCIPAL -->
-<h2>📄 Datos ART: {{ cliente_nombre }}</h2>
+  </head>
+  <body>
+    <div class="formulario container">
+      <img src="{{ url_for('static', filename='img/logo-netbroker.png') }}" alt="Logo de NetBroker" class="logo" />
+      <!-- TÍTULO PRINCIPAL -->
+      <h2>📄 Datos ART: {{ cliente_nombre }}</h2>
 
-    <a href="{{ url_for('usuarios.descargar_pdf', usuario_id=usuario_id) }}" class="btn btn-blue">📥 Descargar PDF</a>
+      <a href="{{ url_for('usuarios.descargar_pdf', usuario_id=usuario_id) }}" class="btn btn-blue">📥 Descargar PDF</a>
 
-    <!-- TABLA -->
-<table>
+      <!-- TABLA -->
+      <table>
         <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>Empresa</th>
-                <th>Cargo</th>
-                <th>Ciudad</th>
-            </tr>
+          <tr>
+            <th>Nombre</th>
+            <th>Empresa</th>
+            <th>Cargo</th>
+            <th>Ciudad</th>
+          </tr>
         </thead>
         <tbody>
-        {% for fila in datos %}
-            <tr>
-                <td>{{ fila['nombre'] }}</td>
-                <td>{{ fila['empresa'] }}</td>
-                <td>{{ fila['cargo'] }}</td>
-                <td>{{ fila['ciudad'] }}</td>
-            </tr>
-        {% endfor %}
+          {% for fila in datos %}
+          <tr>
+            <td>{{ fila['nombre'] }}</td>
+            <td>{{ fila['empresa'] }}</td>
+            <td>{{ fila['cargo'] }}</td>
+            <td>{{ fila['ciudad'] }}</td>
+          </tr>
+          {% endfor %}
         </tbody>
-    </table>
-<!-- FIN TABLA -->
+      </table>
+      <!-- FIN TABLA -->
 
-    <!-- SUBTÍTULO -->
-<h3 style="margin-top:2rem; text-align:center;">Distribución por Ciudad</h3>
-    <div style="max-width: 600px; margin: 2rem auto;">
+      <!-- SUBTÍTULO -->
+      <h3 style="margin-top: 2rem; text-align: center">Distribución por Ciudad</h3>
+      <div style="max-width: 600px; margin: 2rem auto">
         <canvas id="graficoCiudad"></canvas>
-    </div>
-</div>
+      </div>
 
-<script>
-const ctx = document.getElementById('graficoCiudad');
-const chart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: {{ labels | safe }},
-        datasets: [{
-            label: 'Cantidad',
-            data: {{ valores | safe }},
-            backgroundColor: 'rgba(0, 123, 255, 0.6)',
-            borderColor: 'rgba(0, 123, 255, 1)',
-            borderWidth: 1
-        }]
-    },
-    options: {
-        indexAxis: 'y',
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-            x: {
-                beginAtZero: true,
-                ticks: { stepSize: 1 }
-            },
-            y: {
-                ticks: {
-                    color: '#333',
-                    font: {
-                        size: 14
-                    }
-                }
-            }
-        },
-        plugins: {
-            legend: {
-                position: 'top'
-            },
-            tooltip: {
-                enabled: true
-            }
-        }
-    }
-});
-</script>
-</body>
+      <div style="margin-top: 30px; text-align: center">
+        <a href="{{ url_for('usuarios.listar_usuarios') }}" class="btn btn-white">← Volver al panel</a>
+      </div>
+    </div>
+
+    <script>
+      const ctx = document.getElementById('graficoCiudad');
+      const chart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+              labels: {{ labels | safe }},
+              datasets: [{
+                  label: 'Cantidad',
+                  data: {{ valores | safe }},
+                  backgroundColor: 'rgba(0, 123, 255, 0.6)',
+                  borderColor: 'rgba(0, 123, 255, 1)',
+                  borderWidth: 1
+              }]
+          },
+          options: {
+              indexAxis: 'y',
+              responsive: true,
+              maintainAspectRatio: false,
+              scales: {
+                  x: {
+                      beginAtZero: true,
+                      ticks: { stepSize: 1 }
+                  },
+                  y: {
+                      ticks: {
+                          color: '#333',
+                          font: {
+                              size: 14
+                          }
+                      }
+                  }
+              },
+              plugins: {
+                  legend: {
+                      position: 'top'
+                  },
+                  tooltip: {
+                      enabled: true
+                  }
+              }
+          }
+      });
+    </script>
+  </body>
 </html>

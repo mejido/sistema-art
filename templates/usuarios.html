@@ -3,45 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <title>Usuarios</title>
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='css/style.css') }}"
-    />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
   </head>
   <body>
     <div class="container container-wide">
-      <img
-        src="{{ url_for('static', filename='img/logo-netbroker.png') }}"
-        alt="Logo de NetBroker"
-        class="logo"
-      />
-      <div class="filtro-titulo">
-        Usuarios: <span class="rol">{{ titulo }}</span>
-      </div>
+      <img src="{{ url_for('static', filename='img/logo-netbroker.png') }}" alt="Logo de NetBroker" class="logo" />
+      <div class="filtro-titulo">Usuarios: <span class="rol">{{ titulo }}</span></div>
 
       <div class="btn-container container-wide">
-        <a href="{{ url_for('usuarios.nuevo_usuario') }}" class="btn btn-blue"
-          ><span class="icono-blanco">➕</span>Nuevo Usuario</a
-        >
-        <a
-          href="{{ url_for('usuarios.listar_usuarios') }}"
-          class="btn btn-white"
-          >Todos</a
-        >
-        <a
-          href="{{ url_for('usuarios.listar_usuarios') }}?rol=admin"
-          class="btn btn-white"
-          >Administradores</a
-        >
-        <a
-          href="{{ url_for('usuarios.listar_usuarios') }}?rol=cliente"
-          class="btn btn-white"
-          >Clientes</a
-        >
+        <a href="{{ url_for('usuarios.nuevo_usuario') }}" class="btn btn-blue"><span class="icono-blanco">➕</span>Nuevo Usuario</a>
+        <a href="{{ url_for('usuarios.listar_usuarios') }}" class="btn btn-white">Todos</a>
+        <a href="{{ url_for('usuarios.listar_usuarios') }}?rol=admin" class="btn btn-white">Administradores</a>
+        <a href="{{ url_for('usuarios.listar_usuarios') }}?rol=cliente" class="btn btn-white">Clientes</a>
       </div>
 
       <!-- TABLA -->
-<table>
+      <table>
         <thead>
           <tr>
             <th>ID</th>
@@ -59,21 +36,11 @@
             <td>{{ u.usuario }}</td>
             <td>{{ u.rol }}</td>
             <td>
-              <a
-                href="{{ url_for('usuarios.editar_usuario', id=u.id) }}"
-                class="btn btn-white"
-                >✏️ Editar</a
-              >
+              <a href="{{ url_for('usuarios.editar_usuario', id=u.id) }}" class="btn btn-white">✏️ Editar</a>
               {% if u.rol == 'cliente' %}
-              <a
-                href="{{ url_for('usuarios.datos_art', usuario_id=u.id) }}"
-                class="btn btn-white"
-                >📊 Datos ART</a>
+              <a href="{{ url_for('usuarios.datos_art', usuario_id=u.id) }}" class="btn btn-white">📊 Datos ART</a>
               {% endif %}
-              <a
-                href="{{ url_for('usuarios.eliminar_usuario', id=u.id) }}"
-                class="btn btn-white"
-                onclick="return confirm('¿Eliminar usuario?')"
+              <a href="{{ url_for('usuarios.eliminar_usuario', id=u.id) }}" class="btn btn-white" onclick="return confirm('¿Eliminar usuario?')"
                 >🗑️</a
               >
             </td>
@@ -81,12 +48,10 @@
           {% endfor %}
         </tbody>
       </table>
-<!-- FIN TABLA -->
+      <!-- FIN TABLA -->
 
       <div class="centered-buttons">
-        <a href="{{ url_for('auth.admin') }}" class="btn btn-white"
-          >← Volver al panel</a
-        >
+        <a href="{{ url_for('auth.admin') }}" class="btn btn-white">← Volver al panel</a>
       </div>
     </div>
   </body>

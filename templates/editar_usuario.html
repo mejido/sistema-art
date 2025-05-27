@@ -79,7 +79,7 @@
             <option value="cliente" {% if user.rol == 'cliente' %}selected{% endif %}>Cliente</option>
         </select>
 
-        <div class="botones">
+        <div class="centered-buttons">
             <button type="submit" class="btn btn-blue">💾 Guardar</button>
             <a href="{{ url_for('usuarios.listar_usuarios') }}" class="btn btn-white">← Cancelar</a>
         </div>
